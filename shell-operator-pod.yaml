@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shell-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oper
+  template:
+    metadata:
+      labels:
+        app: oper
+    spec:
+      containers:
+      - name: shell-operator
+        image: ghcr.io/flant/shell-operator:latest
+        #env:
+          #- name: LOG_PROXY_HOOK_JSON
+            #value: "true"
+          #- name: LOG_TYPE
+            #value: "text"
+        #imagePullPolicy: Always
+        volumeMounts:
+          - name: scripts
+            mountPath: /hooks/
+      serviceAccountName: monitor-pods-acc
+      volumes:
+        - name: scripts
+          configMap:
+            name: testscript
+            defaultMode: 0777
