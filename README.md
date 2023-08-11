@@ -6,6 +6,12 @@ kubectl create configmap testscript --from-file=hooks/shell/ -o yaml --dry-run=c
 ```bash
 kubectl apply -f shell-operator-pod.yaml
 ```
+Create rbac
+```bash
+kubectl create serviceaccount monitor-pods-acc
+kubectl create clusterrole monitor-operator --verb=get,watch,list,patch --resource=deployments,configmaps
+kubectl create clusterrolebinding monitor-operator --clusterrole=monitor-operator --serviceaccount=vavada-dev:monitor-pods-acc
+```
 
 For using with python change image inside deployment to image builded from Dockerfile, and apply hooks from python dirrectory
 

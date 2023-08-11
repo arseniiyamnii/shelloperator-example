@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: shell-operator
-        image: ghcr.io/flant/shell-operator:latest
+        image: ghcr.io/flant/shell-operator:v1.3.1
         #env:
           #- name: LOG_PROXY_HOOK_JSON
             #value: "true"
